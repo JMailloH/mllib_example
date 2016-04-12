@@ -26,7 +26,7 @@ object mllib_example extends Serializable {
     val sc = new SparkContext(conf)
 
     //Read the dataset
-    val rawdata = MLUtils.loadLibSVMFile(sc, "/home/hadoop/datasets/epsilon/epsilon_normalized_train")
+    val rawdata = MLUtils.loadLibSVMFile(sc, "/home/hadoop/workspace/mllib_example/datasets/epsilon/epsilon_normalized_train")
     //    val rawdata = MLUtils.loadLibSVMFile(sc, "hdfs://hadoop-master:8020/user/spark/datasets/epsilon/epsilon_normalized")
 
     val data = rawdata.map { lp =>
@@ -46,7 +46,7 @@ object mllib_example extends Serializable {
     outputString += "@NumNonZeros (0) --> " + summary.numNonzeros(0) + "\n" // number of nonzeros in each column
 
     // Load the test data
-    val rawtest = MLUtils.loadLibSVMFile(sc, "/home/hadoop/datasets/epsilon/epsilon_normalized_test")
+    val rawtest = MLUtils.loadLibSVMFile(sc, "/home/hadoop/workspace/mllib_example/datasets/epsilon/epsilon_normalized_test")
     //val rawtest = MLUtils.loadLibSVMFile(sc, "hdfs://hadoop-master:8020/user/spark/datasets/epsilon/epsilon_normalized.t")
     val test = rawtest.map { lp =>
       val newclass = if (lp.label == 1.0) 0 else 1
@@ -100,6 +100,6 @@ object mllib_example extends Serializable {
     println(outputString)
 
     val predictionsTxt = sc.parallelize(outputString, 1)
-    predictionsTxt.saveAsTextFile("PONER EL PATH DE SALIDA") //E.G. /home/hadoop/output.txt
+    predictionsTxt.saveAsTextFile("/home/hadoop/workspace/mllib_example/output.txt")
   }
 }
